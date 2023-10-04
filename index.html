@@ -30,7 +30,7 @@
                     <div class="app__btn-text">Автор</div>
                 </button>
                 <button class="app__btn btn__sound">
-                    <i class="fa fa-volume-up" aria-hidden="true"></i>
+                    <i class="fa fa-volume-off" aria-hidden="true"></i>
                     <div class="app__btn-text">Звук</div>
                 </button>
             </div>
@@ -46,33 +46,36 @@
                     <div class="app__body-top">
                         <div class="app__card">
                             <div class="app__card-text">Счет</div>
-                            <div class="app__card-count">0</div>
+                            <div class="app__card-count">{{totalScore}}</div>
                         </div>
                         <div class="app__card">
                             <div class="app__card-text">Открыто рас</div>
-                            <div class="app__card-count">0</div>
+                            <div class="app__card-count">{{openRaces}}</div>
                         </div>
                         <div class="app__card">
                             <div class="app__card-text">Всего игр</div>
-                            <div class="app__card-count">0</div>
+                            <div class="app__card-count">{{ totalGames }}</div>
                         </div>
                         <div class="app__card">
                             <div class="app__card-text">Любимая раса</div>
-                            <div class="app__card-count">0</div>
+                            <div class="app__card-count">{{favoritRace}}</div>
                         </div>
                     </div>
                     <div class="app__body-middle">
-                        <div class="app__result">
+                        <div class="app__result"
+                            v-for="(race, k) in results"
+                            v-show="showResultRace[k]"
+                            @click="goToResult(k)">
                             <div class="app__result-score">
                                 <i class="fa fa-star" aria-hidden="true"></i>
-                                <div class="app__result-count">150</div>
+                                <div class="app__result-count">{{race.points}}</div>
                             </div>
-                            <div class="app__result-name">Зерг</div>
-                            <div class="app__result-amount">5</div>
+                            <div class="app__result-name">{{race.name}}</div>
+                            <div class="app__result-amount">{{totalGame[k]}}</div>
                         </div>
                     </div>
                     <div class="app__body-bottom">
-                        <button class="app__btn btn__back btn_achivment">
+                        <button class="app__btn btn__back btn_achivment" @click="goToMain">
                             <i class="fa fa-reply" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -124,24 +127,21 @@
             </div>
         </div> 
         <!-- Результат игры - расы -->
-        <div class="app results" data-race="zerg" v-show="showResult">
+        <div class="app results" v-bind:data-race="resultRace" v-show="showResult"> 
             <div class="app__body">
                 <div class="app__results-inner">
-                    <div class="results__title">Зерг</div>
+                    <div class="results__title">{{ results[resultRace].name }}</div>
                     <div class="results__img">
-                        <img src="img/zerg_logo.png">
+                        <img v-bind:src="'img/'+resultRace+'_logo.png'">
                     </div>
                     <div class="results__text-box">
-                        <p class="results__text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                            Adipisci quia eum atque soluta, possimus et ipsam cumque, dolorum, voluptatibus 
-                            esse in dignissimos rerum rem neque saepe quam quae suscipit quaerat.
-                        </p>
-                        <p class="results__quote">Цитата 1</p>
-                        <p class="results__quote">Цитата 2</p>
-                        <p class="results__author">Автор</p>
+                        <p class="results__text">{{ results[resultRace].description }}</p>
+                        <p class="results__quote">{{ results[resultRace].quote1 }}</p>
+                        <p class="results__quote">{{ results[resultRace].quote2 }}</p>
+                        <p class="results__author">{{ results[resultRace].author }}</p>
                     </div>
                     <div>
-                        <button class="app__btn btn__back btn__zerg">
+                        <button v-bind:class="'app__btn btn__back btn__'+resultRace" v-on:click="goToAchivments">
                             <i class="fa fa-reply" aria-hidden="true"></i>
                         </button>
                     </div>
