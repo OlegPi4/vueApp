@@ -341,15 +341,7 @@ i.fa-star {
 
 }
 @media (min-width: 992px) {
-    .app__btn {
-        padding: 24px 40px;
-        display: flex;
-        min-height: 100px;
-        width: 380px;
-        border-radius: 56px;
-        font-size: 26px;
-        line-height: 32px;
-    }
+   
     i.fa {
         font-size: 50px;
         margin-right: 8px;
